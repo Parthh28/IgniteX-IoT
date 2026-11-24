@@ -1,0 +1,230 @@
+/* Announcements Section Styles */
+
+.section {
+  position: relative;
+  width: 100%;
+  padding: var(--space-2xl) 0;
+  background-color: transparent;
+  border-bottom: 1px solid var(--border);
+}
+
+.splitHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.categoryTag {
+  font-family: var(--font-code);
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.8vw, 2.05rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+.sectionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-code);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  align-self: flex-start;
+  transition: var(--transition);
+}
+
+.sectionLink:hover {
+  color: var(--text-primary);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--border);
+  gap: 1px;
+}
+
+.item {
+  background-color: var(--bg-secondary);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: var(--transition);
+}
+
+.item:hover {
+  background-color: var(--bg-elevated);
+}
+
+.itemMain {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.eventTag {
+  font-family: var(--font-sans);
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  background-color: var(--accent-subtle);
+  border-radius: 4px;
+  padding: 2px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 0.725rem;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 2px 8px;
+  text-transform: capitalize;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.statusOpen {
+  background-color: var(--accent-subtle);
+  border: 1px solid rgba(91, 140, 196, 0.25);
+  color: var(--status-open);
+}
+
+.statusUpcoming {
+  background-color: rgba(184, 134, 75, 0.1);
+  border: 1px solid rgba(184, 134, 75, 0.3);
+  color: var(--status-upcoming);
+}
+
+.itemTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.itemDesc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  max-width: 680px;
+}
+
+.itemSide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: flex-start;
+}
+
+.metaRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.825rem;
+  color: var(--text-muted);
+}
+
+.actionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.825rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.actionLink:hover {
+  background-color: var(--cta-bg);
+  color: var(--cta-text);
+  border-color: var(--cta-bg);
+}
+
+.emptyState {
+  padding: var(--space-2xl) var(--space-lg);
+  background-color: var(--bg-secondary);
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .splitHeader {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .sectionLink {
+    align-self: flex-end;
+  }
+
+  .item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xl);
+  }
+
+  .itemSide {
+    align-items: flex-end;
+    text-align: right;
+    flex-shrink: 0;
+  }
+}
+

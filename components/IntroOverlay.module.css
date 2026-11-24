@@ -1,0 +1,206 @@
+/* Cinematic Signal-Ignition Intro Overlay (auto-enters site, no skip button) */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(15, 28, 56, 0.96) 0%,
+    var(--bg-primary) 68%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.55s ease;
+}
+
+.exiting {
+  opacity: 0;
+  transform: translateY(-20px) scale(1.015);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Signal Ignition Pulse Emblem */
+.pulseWrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.pulseCore {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-orange);
+  box-shadow: 0 0 18px rgba(217, 114, 36, 0.85);
+  transform: scale(0);
+  animation: coreIgnite 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+}
+
+.pulseRingInner,
+.pulseRingOuter {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(43, 130, 217, 0.55);
+  opacity: 0;
+  transform: scale(0.35);
+}
+
+.pulseRingInner {
+  animation: ringExpand 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+
+.pulseRingOuter {
+  border-color: rgba(217, 114, 36, 0.45);
+  animation: ringExpand 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+}
+
+@keyframes coreIgnite {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ringExpand {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.35);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.85);
+  }
+}
+
+/* Masked Wordmark Reveal */
+.wordmarkMask {
+  overflow: hidden;
+  padding: 4px 6px;
+}
+
+.wordmarkRow {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.24em;
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6.2vw, 4.25rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--text-primary);
+}
+
+.igniteText {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(105%);
+  animation: wordRise 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+}
+
+.brandX {
+  color: var(--accent-orange);
+  text-shadow: 0 0 24px rgba(217, 114, 36, 0.35);
+}
+
+.iotText {
+  display: inline-block;
+  color: var(--accent-primary);
+  opacity: 0;
+  transform: translateY(105%);
+  animation: wordRise 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.48s forwards;
+}
+
+@keyframes wordRise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sweeping Hairline Divider */
+.dividerTrack {
+  position: relative;
+  width: 240px;
+  height: 1px;
+  margin: 18px 0 14px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeIn 0.3s ease 0.72s forwards;
+}
+
+.dividerBeam {
+  position: absolute;
+  top: 0;
+  left: -45%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent-primary),
+    var(--accent-orange),
+    transparent
+  );
+  animation: beamSweep 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.75s forwards;
+}
+
+@keyframes beamSweep {
+  0% {
+    left: -45%;
+  }
+  100% {
+    left: 110%;
+  }
+}
+
+/* Monospace Tagline */
+.tagline {
+  font-family: var(--font-code);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0;
+  animation: taglineFocus 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+}
+
+@keyframes taglineFocus {
+  to {
+    opacity: 1;
+    letter-spacing: 0.14em;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,120 @@
+/* IgniteX IoT Club v2 — GPU-Accelerated Motion & Spotlight Kit */
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0) scale(0.985);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.revealLeft {
+  transform: translate3d(-26px, 0, 0) scale(0.985);
+}
+
+.revealRight {
+  transform: translate3d(26px, 0, 0) scale(0.985);
+}
+
+.revealVisible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Interactive Mouse-Tracking Spotlight Card */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+  --spot-x: 50%;
+  --spot-y: 50%;
+  --spot-opacity: 0;
+  --spot-color: rgba(43, 130, 217, 0.16);
+}
+
+.spotlightOrange {
+  --spot-color: rgba(217, 114, 36, 0.15);
+}
+
+.spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--spot-opacity);
+  background: radial-gradient(
+    360px circle at var(--spot-x) var(--spot-y),
+    var(--spot-color),
+    transparent 65%
+  );
+  transition: opacity 0.25s ease;
+  z-index: 0;
+}
+
+.spotlight > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle Hero Float Animation */
+.floatCard {
+  animation: gentleFloat 6s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* Live Beacon Pulse Ring */
+.beacon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-orange);
+}
+
+.beacon::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent-orange);
+  animation: beaconPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes beaconPing {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .revealLeft,
+  .revealRight {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .floatCard,
+  .beacon::after {
+    animation: none;
+  }
+}
+

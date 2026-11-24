@@ -1,0 +1,341 @@
+/* Team Section Styles */
+
+.section {
+  position: relative;
+  width: 100%;
+  padding: var(--space-3xl) 0;
+  background-color: var(--bg-section-tint);
+  border-bottom: 1px solid var(--border);
+}
+
+.header {
+  max-width: 620px;
+  margin-bottom: var(--space-2xl);
+}
+
+.categoryTag {
+  font-family: var(--font-code);
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-xs);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 3.4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 0.975rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* Category Dividers */
+.subheading {
+  font-family: var(--font-code);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.subheading::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--border);
+}
+
+.facultySection {
+  margin-bottom: var(--space-2xl);
+}
+
+.studentsSection {
+  margin-bottom: var(--space-md);
+}
+
+/* Grids */
+.teamGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+.facultyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+/* Member Card */
+.card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.card:hover {
+  border-color: var(--border-hover);
+}
+
+.facultyCard {
+  border-color: rgba(217, 114, 36, 0.35);
+}
+
+.facultyCard:hover {
+  border-color: rgba(217, 114, 36, 0.65);
+}
+
+.leadCard {
+  border-color: rgba(43, 130, 217, 0.35);
+}
+
+.leadCard:hover {
+  border-color: rgba(43, 130, 217, 0.65);
+}
+
+.cardBodyButton {
+  width: 100%;
+  padding: var(--space-xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  background: transparent;
+  cursor: pointer;
+}
+
+.viewProfileHint {
+  margin-top: var(--space-md);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+  opacity: 0.85;
+  transition: var(--transition);
+}
+
+.cardBodyButton:hover .viewProfileHint {
+  opacity: 1;
+}
+
+.avatarContainer {
+  margin-bottom: var(--space-md);
+}
+
+.avatarPhoto {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-strong);
+}
+
+.avatarFallback {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.facultyFallback {
+  color: var(--accent-orange);
+  border-color: rgba(217, 114, 36, 0.45);
+  background-color: rgba(217, 114, 36, 0.08);
+}
+
+.leadFallback {
+  color: var(--accent-primary);
+  border-color: rgba(43, 130, 217, 0.45);
+  background-color: var(--accent-subtle);
+}
+
+.memberName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.roleBadge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: var(--space-md);
+}
+
+.roleBadgeFaculty {
+  background-color: rgba(217, 114, 36, 0.12);
+  border-color: rgba(217, 114, 36, 0.38);
+  color: var(--accent-orange);
+}
+
+.roleBadgeLead {
+  background-color: var(--accent-subtle);
+  border-color: rgba(43, 130, 217, 0.38);
+  color: var(--accent-primary);
+}
+
+.memberBio {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Expand Button */
+.expandButton {
+  width: 100%;
+  padding: 11px var(--space-lg);
+  background-color: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.825rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  transition: var(--transition);
+}
+
+.expandButton:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--text-primary);
+}
+
+.expandChevron {
+  transition: transform 0.2s ease;
+}
+
+.expandChevronOpen {
+  transform: rotate(180deg);
+}
+
+/* Sub-Team Panel */
+.subTeamPanel {
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.subTeamHeading {
+  font-family: var(--font-sans);
+  font-size: 0.725rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-xs);
+}
+
+.coordinatorItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 8px 10px;
+  border-radius: 6px;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.coordinatorItem:hover {
+  border-color: var(--border-hover);
+  background-color: var(--bg-elevated);
+}
+
+.coordAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.coordInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.coordName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.coordRole {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Breakpoints */
+@media (min-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .teamGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .facultyGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .teamGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

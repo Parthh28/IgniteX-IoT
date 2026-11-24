@@ -1,0 +1,145 @@
+/* Professional Minimalist Footer Styles */
+
+.footer {
+  width: 100%;
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border);
+  padding: var(--space-xl) 0 var(--space-lg);
+  position: relative;
+  z-index: 10;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.topRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.brandLogo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.brandAccent {
+  color: var(--accent-orange);
+}
+
+.brandIot {
+  color: var(--accent-primary);
+}
+
+.tagline {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.contactGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.emailLink {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background-color: var(--bg-secondary);
+  transition: var(--transition);
+}
+
+.emailLink:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  background-color: var(--bg-elevated);
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.socialBtn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.socialBtn:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  background-color: var(--bg-elevated);
+}
+
+.bottomRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border);
+}
+
+.copyright,
+.focusArea {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+@media (min-width: 768px) {
+  .topRow {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .bottomRow {
+    flex-direction: row;
+    align-items: center;
+  }
+}
