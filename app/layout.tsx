@@ -38,9 +38,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'IgniteX IoT Club — Connect. Automate. Innovate.',
+  title: 'IgniteX IoT Club — School of CSA',
   description:
-    'IgniteX IoT Club is a college technical organization advancing student innovation across the Internet of Things, Artificial Intelligence, robotics, and hardware automation.',
+    'IgniteX IoT is a student-driven technology club under the School of Computer Science and Applications (CSA), dedicated to coding, AI, IoT, problem-solving, and creative innovation.',
   keywords: [
     'IoT Club',
     'IgniteX',
@@ -52,10 +52,6 @@ export const metadata: Metadata = {
     'Embedded Systems',
   ],
   authors: [{ name: 'IgniteX IoT Club' }],
-  icons: {
-    icon: '/ignitex-logo.png',
-    apple: '/ignitex-logo.png',
-  },
   openGraph: {
     title: 'IgniteX IoT Club — Spark Ideas. Connect Possibilities.',
     description:
@@ -73,7 +69,7 @@ async function getNavUser(): Promise<NavUser | null> {
       return {
         href: '/admin',
         name: 'Admin',
-        photoUrl: '/ignitex-logo.png',
+        photoUrl: '/logo.png',
         isAdmin: true,
       };
     }

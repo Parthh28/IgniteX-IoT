@@ -61,6 +61,8 @@ export default function AdminDashboard({
   const [eventFormNonce, setEventFormNonce] = useState(0);
   const [memberFormNonce, setMemberFormNonce] = useState(0);
   const [photoFormNonce, setPhotoFormNonce] = useState(0);
+  const [memberPhotoPreview, setMemberPhotoPreview] = useState<string>('');
+  const [memberPhotoUrlValue, setMemberPhotoUrlValue] = useState<string>('');
   const [actionMsg, setActionMsg] = useState<ActionResponse | null>(null);
   const [confirmState, setConfirmState] = useState<PendingConfirmation | null>(
     null
@@ -129,9 +131,16 @@ export default function AdminDashboard({
   }, [updateEventState]);
 
   useEffect(() => {
+    setMemberPhotoPreview('');
+    setMemberPhotoUrlValue(editingMember?.photo_url || '');
+  }, [editingMember, memberFormNonce]);
+
+  useEffect(() => {
     if (createMemberState?.success) {
       setMemberFormNonce((n) => n + 1);
       setDefaultParentId('');
+      setMemberPhotoPreview('');
+      setMemberPhotoUrlValue('');
       setActionMsg(createMemberState);
     }
   }, [createMemberState]);
@@ -140,6 +149,8 @@ export default function AdminDashboard({
     if (updateMemberState?.success) {
       setEditingMember(null);
       setDefaultParentId('');
+      setMemberPhotoPreview('');
+      setMemberPhotoUrlValue('');
       setActionMsg(updateMemberState);
     }
   }, [updateMemberState]);
@@ -860,14 +871,73 @@ export default function AdminDashboard({
                 </div>
 
                 <div className={styles.field}>
-                  <label htmlFor="tm-photo" className={styles.label}>
-                    Photo URL (optional)
-                  </label>
+                  <label className={styles.label}>Member Photo (optional)</label>
+                  <div className={styles.photoUploadRow}>
+                    <div className={styles.photoPreviewBox}>
+                      {memberPhotoPreview || memberPhotoUrlValue ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={memberPhotoPreview || memberPhotoUrlValue}
+                          alt="Member preview"
+                          className={styles.photoPreviewImg}
+                        />
+                      ) : (
+                        <span className={styles.photoPreviewPlaceholder}>
+                          No photo
+                        </span>
+                      )}
+                    </div>
+
+                    <div className={styles.photoUploadControls}>
+                      <div className={styles.photoUploadActions}>
+                        <label
+                          htmlFor="tm-photo-file"
+                          className={styles.uploadFileBtn}
+                        >
+                          Upload Photo
+                          <input
+                            id="tm-photo-file"
+                            name="photo_file"
+                            type="file"
+                            accept="image/png,image/jpeg,image/webp,image/gif"
+                            className={styles.hiddenFileInput}
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                setMemberPhotoPreview(URL.createObjectURL(file));
+                              }
+                            }}
+                          />
+                        </label>
+                        {(memberPhotoPreview || memberPhotoUrlValue) && (
+                          <button
+                            type="button"
+                            className={styles.secondaryBtn}
+                            onClick={() => {
+                              setMemberPhotoPreview('');
+                              setMemberPhotoUrlValue('');
+                              const inputEl = document.getElementById(
+                                'tm-photo-file'
+                              ) as HTMLInputElement | null;
+                              if (inputEl) inputEl.value = '';
+                            }}
+                          >
+                            Clear
+                          </button>
+                        )}
+                      </div>
+                      <span className={styles.uploadHint}>
+                        JPG, PNG, WebP or GIF up to 5 MB
+                      </span>
+                    </div>
+                  </div>
+
                   <input
                     id="tm-photo"
                     name="photo_url"
-                    defaultValue={editingMember?.photo_url || ''}
-                    placeholder="https://..."
+                    value={memberPhotoUrlValue}
+                    onChange={(e) => setMemberPhotoUrlValue(e.target.value)}
+                    placeholder="Or paste photo URL (https://...)"
                     className={styles.input}
                   />
                 </div>

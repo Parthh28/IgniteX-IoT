@@ -40,7 +40,7 @@ export default function AuthForm({
         <div className={styles.header}>
           <Link href="/" className={styles.brandLink} aria-label="IgniteX IoT Home">
             <Image
-              src="/ignitex-logo.png"
+              src="/logo.png"
               alt="IgniteX IoT Club logo"
               width={34}
               height={34}

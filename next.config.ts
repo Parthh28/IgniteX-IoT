@@ -14,6 +14,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   experimental: {
     agentUpgrade: 'security',
+    serverActions: {
+      bodySizeLimit: '5mb',
+    },
   },
   async headers() {
     return [

@@ -53,6 +53,9 @@ function validateOptionalHttpUrl(
   fieldLabel: string
 ): { ok: true; value: string | null } | { ok: false; error: string } {
   if (!raw) return { ok: true, value: null };
+  if (raw.startsWith('/') && !raw.startsWith('//')) {
+    return { ok: true, value: raw };
+  }
   try {
     const parsed = new URL(raw);
     if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
@@ -65,6 +68,76 @@ function validateOptionalHttpUrl(
   } catch {
     return { ok: false, error: `${fieldLabel} must be a valid URL.` };
   }
+}
+
+const ALLOWED_IMAGE_TYPES = new Set([
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'image/gif',
+]);
+const MAX_PHOTO_BYTES = 5 * 1024 * 1024;
+
+async function uploadMemberPhotoFile(
+  db: Awaited<ReturnType<typeof createClient>>,
+  file: File,
+  memberName: string
+): Promise<{ ok: true; url: string } | { ok: false; error: string }> {
+  if (!ALLOWED_IMAGE_TYPES.has(file.type)) {
+    return {
+      ok: false,
+      error: 'Photo must be a JPG, PNG, WebP, or GIF image.',
+    };
+  }
+  if (file.size > MAX_PHOTO_BYTES) {
+    return {
+      ok: false,
+      error: 'Photo must be smaller than 5 MB.',
+    };
+  }
+
+  const ext =
+    file.type === 'image/png'
+      ? 'png'
+      : file.type === 'image/webp'
+        ? 'webp'
+        : file.type === 'image/gif'
+          ? 'gif'
+          : 'jpg';
+  const safeSlug =
+    memberName
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '') || 'member';
+  const filePath = `${safeSlug}-${Date.now()}.${ext}`;
+
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const { error } = await db.storage
+    .from('member-photos')
+    .upload(filePath, buffer, {
+      contentType: file.type,
+      upsert: true,
+    });
+
+  if (error) {
+    if (error.message.toLowerCase().includes('not found')) {
+      return {
+        ok: false,
+        error:
+          'Storage bucket "member-photos" not found. Run Section 4 of supabase/seed.sql in your Supabase SQL Editor first.',
+      };
+    }
+    return {
+      ok: false,
+      error: `Photo upload failed: ${error.message}`,
+    };
+  }
+
+  const { data: urlData } = db.storage
+    .from('member-photos')
+    .getPublicUrl(filePath);
+
+  return { ok: true, url: urlData.publicUrl };
 }
 
 export async function adminLogin(
@@ -319,11 +392,24 @@ export async function createTeamMember(
     };
   }
 
-  const photoCheck = validateOptionalHttpUrl(payload.photo_url, 'Photo URL');
-  if (!photoCheck.ok) {
-    return { success: false, message: photoCheck.error, error: photoCheck.error };
+  const photoFile = formData.get('photo_file');
+  if (photoFile instanceof File && photoFile.size > 0) {
+    const uploadRes = await uploadMemberPhotoFile(
+      guard.db,
+      photoFile,
+      payload.name
+    );
+    if (!uploadRes.ok) {
+      return { success: false, message: uploadRes.error, error: uploadRes.error };
+    }
+    payload.photo_url = uploadRes.url;
+  } else {
+    const photoCheck = validateOptionalHttpUrl(payload.photo_url, 'Photo URL');
+    if (!photoCheck.ok) {
+      return { success: false, message: photoCheck.error, error: photoCheck.error };
+    }
+    payload.photo_url = photoCheck.value;
   }
-  payload.photo_url = photoCheck.value;
 
   const { error } = await guard.db.from('team_members').insert(payload);
   if (error) {
@@ -359,11 +445,24 @@ export async function updateTeamMember(
     };
   }
 
-  const photoCheck = validateOptionalHttpUrl(payload.photo_url, 'Photo URL');
-  if (!photoCheck.ok) {
-    return { success: false, message: photoCheck.error, error: photoCheck.error };
+  const photoFile = formData.get('photo_file');
+  if (photoFile instanceof File && photoFile.size > 0) {
+    const uploadRes = await uploadMemberPhotoFile(
+      guard.db,
+      photoFile,
+      payload.name
+    );
+    if (!uploadRes.ok) {
+      return { success: false, message: uploadRes.error, error: uploadRes.error };
+    }
+    payload.photo_url = uploadRes.url;
+  } else {
+    const photoCheck = validateOptionalHttpUrl(payload.photo_url, 'Photo URL');
+    if (!photoCheck.ok) {
+      return { success: false, message: photoCheck.error, error: photoCheck.error };
+    }
+    payload.photo_url = photoCheck.value;
   }
-  payload.photo_url = photoCheck.value;
 
   const { error } = await guard.db
     .from('team_members')

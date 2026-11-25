@@ -34,16 +34,12 @@ const navItems = [
 export default function Navbar({ navUser = null }: { navUser?: NavUser | null }) {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
-      const y = window.scrollY;
-      setIsScrolled(y > 20);
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(docHeight > 0 ? Math.min(1, Math.max(0, y / docHeight)) : 0);
+      setIsScrolled(window.scrollY > 20);
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -132,13 +128,6 @@ export default function Navbar({ navUser = null }: { navUser?: NavUser | null })
 
   return (
     <header className={styles.header}>
-      {/* Top Scroll Progress Line */}
-      <div
-        aria-hidden="true"
-        className={styles.progressBar}
-        style={{ transform: `scaleX(${scrollProgress})` }}
-      />
-
       <div
         id="navbar"
         className={`${styles.navContainer} ${isScrolled ? styles.scrolled : ''}`}
@@ -151,7 +140,7 @@ export default function Navbar({ navUser = null }: { navUser?: NavUser | null })
           aria-label="IgniteX IoT Club Home"
         >
           <Image
-            src="/ignitex-logo.png"
+            src="/logo.png"
             alt="IgniteX IoT Club logo"
             width={48}
             height={48}
